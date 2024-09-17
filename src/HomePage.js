@@ -19,21 +19,21 @@ const tutorials = [
 const HomePage = () => (
   <div>
     <div className="photo-container">
-      <img src="assets/1.jpg" alt="Featured content image" className="photo" />
+      <img src="assets/1.jpg" alt="Description" className="photo" />
     </div>
     <div className="featured-articles">
       <h2>Featured Articles</h2>
       <div className="article-cards">
         {articles.map(article => <ArticleCard key={article.title} article={article} />)}
       </div>
-      <button onClick={() => window.location.href = '/articles'} className="see-all-articles">See All Articles</button>
+      <a href="#" className="see-all-articles">See All Articles</a>
     </div>
     <div className="featured-tutorials">
       <h2>Featured Tutorials</h2>
       <div className="tutorial-cards">
         {tutorials.map(tutorial => <TutorialCard key={tutorial.title} tutorial={tutorial} />)}
       </div>
-      <button onClick={() => window.location.href = '/tutorials'} className="see-all-tutorials">See All Tutorials</button>
+      <a href="#" className="see-all-tutorials">See All Tutorials</a>
     </div>
     <SubscribeSection />
     <Footer />
