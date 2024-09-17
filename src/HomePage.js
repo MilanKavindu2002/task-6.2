@@ -26,14 +26,16 @@ const HomePage = () => (
       <div className="article-cards">
         {articles.map(article => <ArticleCard key={article.title} article={article} />)}
       </div>
-      <a href="#" className="see-all-articles">See All Articles</a>
+      {/* Change href="#" to button */}
+      <button className="see-all-articles">See All Articles</button>
     </div>
     <div className="featured-tutorials">
       <h2>Featured Tutorials</h2>
       <div className="tutorial-cards">
         {tutorials.map(tutorial => <TutorialCard key={tutorial.title} tutorial={tutorial} />)}
       </div>
-      <a href="#" className="see-all-tutorials">See All Tutorials</a>
+      {/* Change href="#" to button */}
+      <button className="see-all-tutorials">See All Tutorials</button>
     </div>
     <SubscribeSection />
     <Footer />
