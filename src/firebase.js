@@ -1,8 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { getAnalytics } from 'firebase/analytics';
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyDKga7fW3xvPsvQjFkJoaszPGk5yiaXsnM",
@@ -14,13 +13,10 @@ const firebaseConfig = {
   measurementId: "G-Z7MYBHVBHV"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
 
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 
-
-export { auth, firestore, signInWithEmailAndPassword, createUserWithEmailAndPassword, doc, setDoc };
+export { auth, firestore, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, doc, setDoc };

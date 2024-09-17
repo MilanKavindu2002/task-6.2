@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import ArticleCard from './ArticleCard';
 import TutorialCard from './TutorialCard';
 import SubscribeSection from './SubscribeSection';
@@ -17,9 +16,8 @@ const tutorials = [
   { img: '3rd.jpg', title: 'Tutorial 3', description: 'Advanced techniques and expert tips for mastering the subject. Best suited for those looking to refine their skills.', rating: Math.random() * (5 - 4) + 4 }
 ];
 
-const HomePage = ({ onLogin }) => (
+const HomePage = () => (
   <div>
-    <Header onLogin={onLogin} />
     <div className="photo-container">
       <img src="assets/1.jpg" alt="Description of the photo" className="photo" />
     </div>

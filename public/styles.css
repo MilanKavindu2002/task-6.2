@@ -233,6 +233,7 @@ body {
   text-decoration: underline;
 }
 
+/* Styles for Login and Sign Up Pages */
 .login-page, .signup-page {
   background-color: #f4f4f4;
   padding: 20px;
@@ -294,6 +295,12 @@ body {
   margin-top: 10px;
 }
 
+/* Style for button container in login page */
+.button-container {
+  display: flex;
+  gap: 15px; /* Increased gap between buttons */
+  margin-top: 20px;
+}
 
 .signup-page .nav-button {
   margin-top: 20px; 
@@ -306,5 +313,4 @@ body {
 .login-page button {
   margin-top: 10px; 
 }
-
 
