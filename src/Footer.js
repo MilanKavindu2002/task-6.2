@@ -5,28 +5,28 @@ const Footer = () => (
     <div className="footer-content">
       <div className="footer-column explore">
         <h3>Explore</h3>
-        <a href="#">Home</a>
-        <a href="#">Articles</a>
-        <a href="#">Tutorials</a>
+        <button onClick={() => console.log('Navigate to Home')}>Home</button>
+        <button onClick={() => console.log('Navigate to Articles')}>Articles</button>
+        <button onClick={() => console.log('Navigate to Tutorials')}>Tutorials</button>
       </div>
       <div className="footer-column support">
         <h3>Support</h3>
-        <a href="#">FAQs</a>
-        <a href="#">Help</a>
-        <a href="#">Contact Us</a>
+        <button onClick={() => console.log('Navigate to FAQs')}>FAQs</button>
+        <button onClick={() => console.log('Navigate to Help')}>Help</button>
+        <button onClick={() => console.log('Navigate to Contact Us')}>Contact Us</button>
       </div>
       <div className="footer-column stay-connected">
         <h3>Stay Connected</h3>
-        <a href="#" className="social-icon"><i className="fab fa-facebook-f"></i></a>
-        <a href="#" className="social-icon"><i className="fab fa-twitter"></i></a>
-        <a href="#" className="social-icon"><i className="fab fa-instagram"></i></a>
+        <button onClick={() => console.log('Visit Facebook')} className="social-icon"><i className="fab fa-facebook-f"></i></button>
+        <button onClick={() => console.log('Visit Twitter')} className="social-icon"><i className="fab fa-twitter"></i></button>
+        <button onClick={() => console.log('Visit Instagram')} className="social-icon"><i className="fab fa-instagram"></i></button>
       </div>
     </div>
     <div className="footer-bottom">
       <p>Dev@Deakin 2024</p>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms</a>
-      <a href="#">Code of Conduct</a>
+      <button onClick={() => console.log('Navigate to Privacy Policy')}>Privacy Policy</button>
+      <button onClick={() => console.log('Navigate to Terms')}>Terms</button>
+      <button onClick={() => console.log('Navigate to Code of Conduct')}>Code of Conduct</button>
     </div>
   </div>
 );

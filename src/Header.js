@@ -10,21 +10,13 @@ const Header = ({ user, onLogin, onLogout, onPost }) => {
           {/* Show 'Login' if no user is logged in, otherwise show 'Sign Out' */}
           {user ? (
             <>
-              <a href="#" onClick={(e) => { e.preventDefault(); onLogout(); }}>
-                Sign Out
-              </a>
-              <a href="#" onClick={(e) => { e.preventDefault(); onPost(); }}>
-                Post
-              </a>
+              <button onClick={onLogout}>Sign Out</button>
+              <button onClick={onPost}>Post</button>
             </>
           ) : (
             <>
-              <a href="#" onClick={(e) => { e.preventDefault(); onLogin(); }}>
-                Login
-              </a>
-              <a href="#" onClick={(e) => { e.preventDefault(); onPost(); }}>
-                Post
-              </a>
+              <button onClick={onLogin}>Login</button>
+              <button onClick={onPost}>Post</button>
             </>
           )}
         </nav>
