@@ -27,7 +27,7 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://your-sonarqube-url'
+                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000' // Update this with the correct URL
             }
         }
         stage('Deploy') {
