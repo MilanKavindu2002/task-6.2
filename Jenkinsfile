@@ -43,7 +43,9 @@ pipeline {
             }
             steps {
                 echo 'Deploying the application...'
-                
+                // Add your deployment commands here (if applicable)
+                echo 'Starting the web application...'
+                bat 'npm start' // Replace with your command to run the application
             }
         }
 
@@ -53,7 +55,7 @@ pipeline {
             }
             steps {
                 echo 'Releasing the application...'
-               
+                // Add release commands here (if applicable)
             }
         }
 
@@ -63,7 +65,7 @@ pipeline {
             }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                
+                // Add monitoring commands here (if applicable)
             }
         }
     }
