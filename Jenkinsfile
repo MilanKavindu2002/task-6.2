@@ -38,30 +38,46 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Deploying the application...'
-                // Add deployment commands here, if any
+                // Add deployment commands here
             }
         }
 
         stage('Start Application') {
             steps {
                 echo 'Starting the web application...'
-                bat 'npm start'
+                bat 'start npm start'
+            }
+        }
+
+        stage('Stop Application') {
+            steps {
+                echo 'Stopping the web application...'
+                bat 'taskkill /F /IM node.exe'
             }
         }
 
         stage('Release') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here, if any
+                // Add release commands here
             }
         }
 
         stage('Monitoring and Alerting') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring commands here, if any
+                // Add monitoring commands here
             }
         }
     }
