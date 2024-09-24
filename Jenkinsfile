@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         MAVEN_HOME = 'C:\\Users\\milan\\Downloads\\apache-maven-3.9.9-bin\\apache-maven-3.9.9'
-        PATH = "${MAVEN_HOME}\\bin;${env.PATH};C:\\Program Files\\nodejs"
+        PATH = "${MAVEN_HOME}\\bin;${env.PATH}"
     }
 
     stages {
@@ -43,17 +43,14 @@ pipeline {
             }
             steps {
                 echo 'Deploying the application...'
-                // Add your deployment commands here, if needed
+                // Add deployment commands here, if any
             }
         }
 
         stage('Start Application') {
-            when {
-                expression { currentBuild.currentResult == 'SUCCESS' }
-            }
             steps {
                 echo 'Starting the web application...'
-                bat 'start npm start'
+                bat 'start npm start' // Adjust this command as needed
             }
         }
 
@@ -63,7 +60,7 @@ pipeline {
             }
             steps {
                 echo 'Releasing the application...'
-                // Add release commands if needed
+                // Add release commands here, if any
             }
         }
 
@@ -73,7 +70,7 @@ pipeline {
             }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring commands if needed
+                // Add monitoring commands here, if any
             }
         }
     }
