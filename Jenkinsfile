@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Replace 'Maven 3.9.9' with 'Maven' or the configured Maven name in Global Tools
-        maven 'Maven'
+        maven 'Maven 3.9.9' // Make sure this matches your configured Maven tool name
     }
 
     stages {
@@ -17,7 +16,8 @@ pipeline {
             steps {
                 script {
                     echo "Building the web application..."
-                    sh 'mvn clean package'
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat 'mvn clean package'
                 }
             }
         }
@@ -25,8 +25,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    echo "Running Tests..."
-                    sh 'mvn test'
+                    echo "Running tests..."
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat 'mvn test'
                 }
             }
         }
@@ -35,15 +36,14 @@ pipeline {
             steps {
                 script {
                     echo "Deploying the application..."
-                    // Add your deployment script here
+                    // Add your deployment script for Windows here
                 }
             }
         }
 
         stage('Release') {
             steps {
-                echo 'Releasing Application...'
-                // Additional release steps can go here
+                echo 'Releasing application...'
             }
         }
     }
