@@ -1,56 +1,77 @@
 pipeline {
     agent any
 
+    tools {
+        // Assuming you are using Maven for build, you can also define other tools here
+        maven 'Maven 3.9.9' // Make sure 'Maven 3.9.9' is configured in Jenkins Global Tools
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Checkout SCM') {
             steps {
-                script {
-                    // Checkout the code from GitHub
-                    git url: 'https://github.com/MilanKavindu2002/task-6.2'
-                }
+                // Fetching the code from GitHub repository
+                git branch: 'main', url: 'https://github.com/MilanKavindu2002/task-6.2'
             }
         }
+
         stage('Build') {
             steps {
                 script {
-                    // Build the application using Maven
-                    bat 'mvn clean package'
+                    echo "Building the web application..."
+                    // Run Maven build, adjust the command if you're using npm, yarn, or other tools
+                    sh 'mvn clean package'
                 }
             }
         }
+
         stage('Test') {
             steps {
                 script {
-                    // Run tests using Maven
-                    bat 'mvn test'
+                    echo "Running Tests..."
+                    // Run your test suite, adjust based on the test tool you are using
+                    sh 'mvn test' // Adjust if you're using a different test tool
                 }
             }
         }
+
         stage('Docker Build') {
+            when {
+                expression { fileExists('Dockerfile') } // Only run if a Dockerfile exists
+            }
             steps {
                 script {
-                    // Build Docker image (adjust Dockerfile path if necessary)
-                    bat 'docker build -t my-web-app .'
+                    echo "Building Docker Image..."
+                    sh 'docker build -t my-app .'
                 }
             }
         }
+
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy the application (add actual deployment command)
-                    echo 'Deploying application...'
-                    // Example: bat 'deploy-command'
+                    echo "Deploying Application..."
+                    // You can define your own deployment steps here, for example, using SCP to upload to a server
+                    sh 'scp target/my-app.jar user@server:/path/to/deploy'
                 }
             }
         }
+
         stage('Release') {
             steps {
                 script {
-                    // Release the application (add actual release command)
-                    echo 'Releasing application...'
-                    // Example: bat 'release-command'
+                    echo "Releasing Application..."
+                    // Add your release steps here if necessary
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
