@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PostTypeSelector from './PostTypeSelector';
+import QuestionForm from './QuestionForm';
+import ArticleForm from './ArticleForm';
+import './PostPage.css';
 
-const PostPage = ({ onBack }) => (
-  <div>
-    <header>
-      <button onClick={onBack}>Back to Home</button>
-    </header>
-    <h2>Create a New Post</h2>
-    <form>
-      <label>
-        Title:
-        <input type="text" name="title" />
-      </label>
-      <br />
-      <label>
-        Content:
-        <textarea name="content"></textarea>
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-);
+const PostPage = () => {
+  const [postType, setPostType] = useState('question');
+
+  return (
+    <div className="post-page">
+      <h2>New Post</h2>
+      <PostTypeSelector setPostType={setPostType} />
+      {postType === 'question' ? <QuestionForm /> : <ArticleForm />}
+    </div>
+  );
+};
 
 export default PostPage;

@@ -1,0 +1,45 @@
+.grey-bar {
+  background-color: #6d6d6d96;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.grey-bar p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.form-field {
+  margin-top: 20px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-field input[type="text"],
+.form-field textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-field textarea {
+  height: 100px;
+}
+
+form button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,76 @@
+.post-type-selector {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full-width grey bar */
+.grey-bar {
+  background-color: #6d6d6d96;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100vw; /* Full screen width */
+  position: relative;
+  left: 50%;  /* Positioning for full-width */
+  transform: translateX(-50%); /* Center the grey bar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+.post-type-content {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-type-label {
+  font-size: 16px;
+  margin: 0;
+}
+
+.radio-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-buttons label {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Back to Home button styling */
+.back-home-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #6c757d; /* Grey background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+}
+
+.back-home-button:hover {
+  background-color: #5a6268; /* Darker grey on hover */
+}
+
+.back-home-button:active {
+  background-color: #545b62; /* Even darker grey when active */
+}
+
+.back-home-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle focus effect */
+}
