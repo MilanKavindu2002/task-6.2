@@ -1,71 +1,58 @@
 pipeline {
     agent any
-    
+
+    environment {
+        MAVEN_HOME = 'C:\\Users\\milan\\Downloads\\apache-maven-3.9.9-bin\\apache-maven-3.9.9'
+        PATH = "${env.MAVEN_HOME}\\bin;${env.PATH}"
+    }
+
     stages {
         stage('Checkout SCM') {
             steps {
                 checkout scm
             }
         }
-
         stage('Build') {
             steps {
                 echo 'Building the application...'
                 bat 'mvn clean package'
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Running tests...'
                 bat 'mvn test'
             }
         }
-
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000'
+                bat 'mvn sonar:sonar -Dsonar.host.url=http://your-sonarqube-url'
             }
         }
-
         stage('Deploy') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
             steps {
                 echo 'Deploying the application...'
-                // Add your deployment steps here
+                // Add your deploy command here
             }
         }
-
         stage('Release') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
             steps {
                 echo 'Releasing the application...'
-                // Add your release steps here
+                // Add your release command here
             }
         }
-
         stage('Monitoring and Alerting') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add your monitoring and alerting steps here
+                // Add monitoring and alerting steps here
             }
         }
     }
-    
+
     post {
         always {
             echo 'Pipeline finished.'
-        }
-        success {
-            echo 'Pipeline succeeded!'
         }
         failure {
             echo 'Pipeline failed!'
