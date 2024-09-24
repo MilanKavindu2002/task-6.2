@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.x' // This should match the name you set in Global Tool Configuration
+        maven 'Maven 3.x' // Replace with your Maven installation name
     }
 
     stages {
@@ -30,29 +30,30 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your-sonar-token' 
-                // Replace 'your-sonar-token' with the actual token
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                    bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add deployment commands here if applicable
+                // Add deployment commands here
             }
         }
 
         stage('Release') {
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here if applicable
+                // Add release commands here
             }
         }
 
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring and alerting commands here if applicable
+                // Add monitoring and alerting commands here
             }
         }
     }
