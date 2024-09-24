@@ -50,7 +50,7 @@ pipeline {
         stage('Start Application') {
             steps {
                 echo 'Starting the web application...'
-                bat 'start npm start' // Adjust this command as needed
+                bat 'npm start' // Run the application in the same process
             }
         }
 
