@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = 'C:\\Users\\milan\\Downloads\\apache-maven-3.9.9-bin\\apache-maven-3.9.9'
-        PATH = "${MAVEN_HOME}\\bin;${env.PATH}"
-    }
-
     stages {
         stage('Checkout SCM') {
             steps {
@@ -40,7 +35,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add your deployment commands here, if needed
+                // Add any deployment commands if needed
             }
         }
 
@@ -51,17 +46,24 @@ pipeline {
             }
         }
 
+        stage('Wait for Manual Stop') {
+            steps {
+                echo 'Application is running. Press Ctrl+C to stop.'
+                bat 'pause' // Keeps the pipeline waiting for user input
+            }
+        }
+
         stage('Release') {
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here, if any
+                // Add release commands here if needed
             }
         }
 
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring commands here, if any
+                // Add monitoring commands here if needed
             }
         }
     }
