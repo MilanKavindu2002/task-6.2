@@ -16,23 +16,41 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                bat 'mvn clean package'
+                script {
+                    try {
+                        echo 'Building the application...'
+                        bat 'mvn clean package'
+                    } catch (Exception e) {
+                        error "Build failed: ${e.message}"
+                    }
+                }
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                bat 'mvn test'
+                script {
+                    try {
+                        echo 'Running tests...'
+                        bat 'mvn test'
+                    } catch (Exception e) {
+                        error "Test execution failed: ${e.message}"
+                    }
+                }
             }
         }
 
         stage('Code Quality Analysis') {
             steps {
-                echo 'Running code quality analysis...'
-                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%'
+                script {
+                    try {
+                        echo 'Running code quality analysis...'
+                        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                            bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%'
+                        }
+                    } catch (Exception e) {
+                        error "Code quality analysis failed: ${e.message}"
+                    }
                 }
             }
         }
@@ -50,7 +68,7 @@ pipeline {
         stage('Start Application') {
             steps {
                 echo 'Starting the web application...'
-                bat 'npm start' // Run the application in the same process
+                bat 'start npm start'
             }
         }
 
