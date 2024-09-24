@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying the application...'
-                // Add deployment commands here
+                
             }
         }
 
@@ -67,7 +67,7 @@ pipeline {
             }
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here
+                
             }
         }
 
@@ -77,7 +77,7 @@ pipeline {
             }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring commands here
+              
             }
         }
     }
