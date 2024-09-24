@@ -1,14 +1,14 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14'
+            args '-u root'  // Ensures the pipeline runs as the root user
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Installing Node.js...'
-                sh '''
-                    curl -sL https://deb.nodesource.com/setup_14.x | bash -
-                    apt-get install -y nodejs
-                '''
                 echo 'Building the web application...'
                 sh 'npm install'  // Installs dependencies
                 sh 'npm run build'  // Builds the project (if you have a build script)
