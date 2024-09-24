@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo 'Building the application...'
                 // Run Maven build to generate the artifact (e.g., JAR/WAR file)
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 // Run unit tests using Maven
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
@@ -31,16 +31,16 @@ pipeline {
             steps {
                 echo 'Running code quality analysis...'
                 // Run SonarQube analysis (ensure SonarQube is configured in Jenkins)
-                sh 'mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL'
+                bat 'mvn sonar:sonar -Dsonar.host.url=%SONARQUBE_URL%'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Use Docker to deploy the application to a test/staging environment
-                sh 'docker build -t $DOCKER_IMAGE .'
-                sh 'docker run -d -p 8080:8080 $DOCKER_IMAGE'
+                // Simulate Docker deployment (adjust based on your deployment environment)
+                bat 'docker build -t %DOCKER_IMAGE% .'
+                bat 'docker run -d -p 8080:8080 %DOCKER_IMAGE%'
             }
         }
 
@@ -48,7 +48,7 @@ pipeline {
             steps {
                 echo 'Releasing the application...'
                 // Simulate releasing the application (e.g., to production)
-                sh 'echo "Promoting application to production..."'
+                bat 'echo "Promoting application to production..."'
                 // Optionally integrate with a release management tool like Octopus Deploy or AWS CodeDeploy
             }
         }
@@ -56,9 +56,8 @@ pipeline {
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Integrate with monitoring tools like Datadog or New Relic
-                sh 'echo "Monitoring production environment..."'
-                // Simulate monitoring and alert setup
+                // Simulate monitoring setup (you can integrate with a real monitoring tool)
+                bat 'echo "Monitoring production environment..."'
             }
         }
     }
