@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = 'C:\\Users\\milan\\Downloads\\apache-maven-3.9.9-bin\\apache-maven-3.9.9'
-        PATH = "${env.MAVEN_HOME}\\bin;${env.PATH}"
-    }
-
     stages {
         stage('Checkout SCM') {
             steps {
@@ -27,29 +22,30 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000' // Update this with the correct URL
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    bat 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://localhost:9000'
+                }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Add your deploy command here
+                // Add deployment steps here
             }
         }
         stage('Release') {
             steps {
                 echo 'Releasing the application...'
-                // Add your release command here
+                // Add release steps here
             }
         }
         stage('Monitoring and Alerting') {
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring and alerting steps here
+                // Add monitoring steps here
             }
         }
     }
-
     post {
         always {
             echo 'Pipeline finished.'
