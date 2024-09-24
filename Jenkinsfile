@@ -1,20 +1,16 @@
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven 3.9.9' // Ensure Maven is configured in Jenkins
-    }
-
-    environment {
-        SONARQUBE_URL = 'http://your-sonarqube-url' // SonarQube server URL
-        DOCKER_IMAGE = 'your-docker-image' // Docker image for deployment
-    }
-
+    
     stages {
+        stage('Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                // Run Maven build to generate the artifact (e.g., JAR/WAR file)
                 bat 'mvn clean package'
             }
         }
@@ -22,7 +18,6 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // Run unit tests using Maven
                 bat 'mvn test'
             }
         }
@@ -30,41 +25,47 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                // Run SonarQube analysis (ensure SonarQube is configured in Jenkins)
-                bat 'mvn sonar:sonar -Dsonar.host.url=%SONARQUBE_URL%'
+                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000'
             }
         }
 
         stage('Deploy') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo 'Deploying the application...'
-                // Simulate Docker deployment (adjust based on your deployment environment)
-                bat 'docker build -t %DOCKER_IMAGE% .'
-                bat 'docker run -d -p 8080:8080 %DOCKER_IMAGE%'
+                // Add your deployment steps here
             }
         }
 
         stage('Release') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo 'Releasing the application...'
-                // Simulate releasing the application (e.g., to production)
-                bat 'echo "Promoting application to production..."'
-                // Optionally integrate with a release management tool like Octopus Deploy or AWS CodeDeploy
+                // Add your release steps here
             }
         }
 
         stage('Monitoring and Alerting') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Simulate monitoring setup (you can integrate with a real monitoring tool)
-                bat 'echo "Monitoring production environment..."'
+                // Add your monitoring and alerting steps here
             }
         }
     }
-
+    
     post {
+        always {
+            echo 'Pipeline finished.'
+        }
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline succeeded!'
         }
         failure {
             echo 'Pipeline failed!'
