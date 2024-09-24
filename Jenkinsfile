@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3.x' // Replace with your Maven installation name
+    environment {
+        MAVEN_HOME = 'C:\\Users\\milan\\Downloads\\apache-maven-3.9.9-bin\\apache-maven-3.9.9'
+        PATH = "${MAVEN_HOME}\\bin;${env.PATH}"
     }
 
     stages {
@@ -30,37 +31,46 @@ pipeline {
         stage('Code Quality Analysis') {
             steps {
                 echo 'Running code quality analysis...'
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                    bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=%SONAR_TOKEN%'
                 }
             }
         }
 
         stage('Deploy') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Deploying the application...'
-                // Add deployment commands here
+                // Add your deployment commands here
             }
         }
 
         stage('Release') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here
+                // Add your release commands here
             }
         }
 
         stage('Monitoring and Alerting') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring and alerting commands here
+                // Add your monitoring and alerting steps here
             }
         }
     }
 
     post {
-        success {
-            echo 'Pipeline finished successfully!'
+        always {
+            echo 'Pipeline finished.'
         }
         failure {
             echo 'Pipeline failed!'
