@@ -38,46 +38,30 @@ pipeline {
         }
 
         stage('Deploy') {
-            when {
-                expression { currentBuild.currentResult == 'SUCCESS' }
-            }
             steps {
                 echo 'Deploying the application...'
-                // Add deployment commands here
+                // Add your deployment commands here, if needed
             }
         }
 
         stage('Start Application') {
             steps {
                 echo 'Starting the web application...'
-                bat 'start npm start'
-            }
-        }
-
-        stage('Stop Application') {
-            steps {
-                echo 'Stopping the web application...'
-                bat 'taskkill /F /IM node.exe'
+                bat 'start cmd /c "npm start"'
             }
         }
 
         stage('Release') {
-            when {
-                expression { currentBuild.currentResult == 'SUCCESS' }
-            }
             steps {
                 echo 'Releasing the application...'
-                // Add release commands here
+                // Add release commands here, if any
             }
         }
 
         stage('Monitoring and Alerting') {
-            when {
-                expression { currentBuild.currentResult == 'SUCCESS' }
-            }
             steps {
                 echo 'Setting up monitoring and alerting...'
-                // Add monitoring commands here
+                // Add monitoring commands here, if any
             }
         }
     }
