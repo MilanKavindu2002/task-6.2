@@ -1,34 +1,59 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven 3.9.9' // Make sure this matches your configured Maven tool name
+    }
+
     stages {
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/MilanKavindu2002/task-6.2'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building the web application...'
-                sh 'npm install'  // Install dependencies
-                sh 'npm run build'  // Build the project
+                script {
+                    echo "Building the web application..."
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat 'mvn clean package'
+                }
             }
         }
-        
+
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'npm test'  // Run tests
+                script {
+                    echo "Running tests..."
+                    // Use 'bat' instead of 'sh' for Windows
+                    bat 'mvn test'
+                }
             }
         }
-        
-        stage('Docker Build') {
-            steps {
-                echo 'Building Docker image...'
-                sh 'docker build -t my-web-app .'  // Build the Docker image
-            }
-        }
-        
+
         stage('Deploy') {
             steps {
-                echo 'Deploying to test environment...'
-                sh 'docker run -d -p 3000:3000 my-web-app'  // Run the container
+                script {
+                    echo "Deploying the application..."
+                    // Add your deployment script for Windows here
+                }
             }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Releasing application...'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
