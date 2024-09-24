@@ -37,21 +37,23 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo 'Installing npm dependencies...'
-                bat 'npm install'
-            }
-        }
-
         stage('Deploy') {
             when {
                 expression { currentBuild.currentResult == 'SUCCESS' }
             }
             steps {
                 echo 'Deploying the application...'
+                // Add your deployment commands here, if needed
+            }
+        }
+
+        stage('Start Application') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
+            steps {
                 echo 'Starting the web application...'
-                bat 'npm start'
+                bat 'start npm start'
             }
         }
 
@@ -61,6 +63,7 @@ pipeline {
             }
             steps {
                 echo 'Releasing the application...'
+                // Add release commands if needed
             }
         }
 
@@ -70,6 +73,7 @@ pipeline {
             }
             steps {
                 echo 'Setting up monitoring and alerting...'
+                // Add monitoring commands if needed
             }
         }
     }
